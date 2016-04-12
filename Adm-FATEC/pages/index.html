@@ -25,8 +25,10 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular.min.js"></script>
+      <script src="../js/controllerscript/controllers.js"></script>
    </head>
-   <body>
+   <body ng-app="app"  ng-controller="sidebarController">
       <div id="wrapper">
          <!-- Navigation -->
          <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -131,28 +133,28 @@
                         <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Cidades<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                            <li>
-                              <a href="#">Gerenciar Cidades </a>
+                              <a ng-click="setItem('gerenciar_cidades')">Gerenciar Cidades </a>
                            </li>
                            <li>
-                              <a href="#">Gerenciar Bairros</a>
+                              <a ng-click="setItem('gerenciar_bairros')">Gerenciar Bairros</a>
                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                      </li>
                      <li>
-                        <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Imóveis<span class="fa arrow"></span></a>
+                       <a><i class="fa fa-bar-chart-o fa-fw"></i> Imóveis<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                            <li>
-                              <a id="novo_imovel" >Cadastrar Novo Imóvel</a>
+                              <a ng-click="setItem('novo_imovel')">Cadastrar Novo Imóvel</a>
                            </li>
                            <li>
-                              <a id="mostrar_exibir_imoveis">Exibir Imóveis Cadastrado</a>
+							                       <a ng-click="setItem('imoveis_cadastrados')">Exibir Imóveis Cadastrado</a>
                            </li>
                            <li>
-                              <a href="#">Pesquisar Imóveis</a>
+                              <a ng-click="setItem('pesquisar_imoveis')">Pesquisar Imóveis</a>
                            </li>
                            <li>
-                              <a href="#">Alterar Posição Destaque</a>
+                              <a ng-click="setItem('alterar_posicao_destaque')">Alterar Posição Destaque</a>
                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -196,346 +198,25 @@
             </div>
             <!-- /.navbar-static-side -->
          </nav>
-         <div id="page-wrapper">
-            <div id="cadastro_novo_imovel" class="row" style="display:none">
-               <div id="cadasto_novo_menuinterno">
-                  <ul class="nav nav-tabs">
-                     <li role="presentation">
-                        <a id="dados" role="button" aria-haspopup="true" aria-expanded="false">
-                        Dados
-                        </a>
-                     </li>
-                     <li role="presentation">
-                        <a id="valores" role="button" aria-haspopup="true" aria-expanded="false">
-                        Valores
-                        </a>
-                     </li>
-                      <li role="presentation">
-                        <a id="exibicao" role="button" aria-haspopup="true" aria-expanded="false">
-                        Exibição
-                        </a>
-                     </li>
-                      <li role="presentation">
-                        <a id="descricao" role="button" aria-haspopup="true" aria-expanded="false">
-                        Descrição
-                        </a>
-                     </li>
-                     <li role="presentation">
-                        <a id="proprietario"role="button" aria-haspopup="true" aria-expanded="false">
-                        Proprietario
-                        </a>
-                     </li>
-                     <li role="presentation">
-                        <a id="adicionar_fotos_salvar" role="button" aria-haspopup="true" aria-expanded="false">
-                        Cadastrar e Adicionar FOTOS
-                        </a>
-                     </li>
-                  </ul>
-                  <form class="form-horizontal" id="form_dados"  style="display:none">
-                     <div class="form-group">
-                        <label for="finalidade" class="col-sm-2 control-label">Finalidade</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="finalidade_imovel">
-                                    <option>Escolha uma Opção</option>
-                                    <option> Venda </option>
-                                    <option> Locação </option>
-                                    <option> Ambos </option>
-                                    <option> Temporada </option>
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-                                             <!--Tipo de Imóvel-->
-                     <div class="form-group">
-                        <label for="tipodeimovel" class="col-sm-2 control-label">Tipo de Imóvel</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="tipodeimovel_imovel">
-                                    <option>Escolha uma Opção</option>
-                                    <option> Apartamento </option>
-                                    <option>Área </option>
-                                    <option>Lançamentos </option>
-                                    <option>Casa </option>
-                                    <option> Casa + Salão </option>
-                                    <option> Casa em Condominio </option>
-                                    <option> Chácara </option>
-                                    <option> Comercial </option>
-                                    <option> Fazenda </option>
-                                    <option> Flat </option>
-                                    <option> Galpão </option>
-                                    <option> Lote </option>
-                                    <option> Loja </option>
-                                    <option> Prédio </option>
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="cidade" class="col-sm-2 control-label">Cidade</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="cidade_imovel">
-                                    <option>Escolha uma Opção</option>
-                                    <option>Caçapava</option>
-                                    <option>Jacarei</option>
-                                    <option> São José dos Campos </option>
-                                    <option>São Sebastião</option>
-                                    <option>Ubatuba </option>
-                                    <option>Paraíbuna </option>
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="Bairro" class="col-sm-2 control-label">Bairro</label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control" id="bairro_imovel" placeholder="Insira o nome do Bairro">
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="Endereco" class="col-sm-2 control-label">Endereço</label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control" id="endereco_imovel" placeholder="Insira o nome o Endereço">
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="dormitorios" class="col-sm-2 control-label">Dormitórios</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="dormitorios_imovel">
-                                    <option>Escolha uma Opção</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5+</option>
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="banheiro" class="col-sm-2 control-label">Banheiros</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="banheiros_imovel">
-                                    <option>Escolha uma Opção</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5+</option>
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="suites" class="col-sm-2 control-label">Suítes</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="suites_imovel">
-                                    <option>Escolha uma Opção</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5+</option>
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-                     <input id="save" type="button" class="btn btn-default btn-lg" value="Salvar"/>
-                  </form>
-
-
-                                    <!--Cadastro imóvel formulario aba valores-->
-
-                         <form class="form-horizontal" id="form_valores"  style="display:none">                                        
-                     <div class="form-group">
-                        <label for="Bairro" class="col-sm-2 control-label">Valor de Venda R$:</label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control" id="bairro_imovel" placeholder="Insira o Valor de Venda">
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="Endereco" class="col-sm-2 control-label">Valor Locação/Temp. R$:</label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control" id="endereco_imovel" placeholder="Insira o valor de Locação">
-                        </div>
-                     </div> 
-                      <div class="form-group">
-                        <label for="Endereco" class="col-sm-2 control-label">Valor Condomínio R$:</label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control" id="endereco_imovel" placeholder="Insira o valor do Condomínio">
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="Endereco" class="col-sm-2 control-label">Valor IPTU R$:</label>
-                        <div class="col-sm-6">
-                           <input type="text" class="form-control" id="endereco_imovel" placeholder="Insira o valor do IPTU">
-                        </div>
-                     </div>                       
-                     <input id="save" type="button" class="btn btn-default btn-lg" value="Salvar"/>
-                  </form>
-
-                                                 <!--FIM-->
-                               <!--Cadastro imóvel formulario aba Exibição-->
-
-                  <form class="form-horizontal" id="form_exibicao"  style="display:none">
-                     <div class="form-group">
-                        <label for="imovel_ativo" class="col-sm-2 control-label">Imóvel Ativo:</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="imovel_ativo">
-                                    <option>Escolha uma Opção</option>
-                                    <option> Sim </option>
-                                    <option> Não </option>                                   
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-
-                     <div class="form-group">
-                        <label for="vendido_alugado" class="col-sm-2 control-label">Vendido / Alugado / Outros:</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="vendido_alugado">
-                                    <option>Escolha uma Opção</option>
-                                    <option>Nenhum</option>
-                                    <option>Venda</option>
-                                    <option>Aluguel</option>                                                                     
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-
-
-                     <div class="form-group">
-                        <label for="vendido_alugado" class="col-sm-2 control-label">Imóvel em Destaque:</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="vendido_alugado">
-                                    <option>Escolha uma Opção</option>
-                                    <option>Sim</option>
-                                    <option>Não</option>                                                                                                     
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-                          
-                     <input id="save" type="button" class="btn btn-default btn-lg" value="Salvar"/>
-               </form>
-
-
-
-
-
-
-                                                <!--FIM-->
-
-                                                <!--Formulario Cadastro imovel aba descição-->
-
-
-                      <form class="form-horizontal" id="form_descricao"  style="display:none">
-                     <div class="form-group">
-                        <label for="imovel_ativo" class="col-sm-2 control-label">Imóvel Ativo:</label>
-                        <div class="col-sm-6">
-                           <textarea class="form-control" rows="3"></textarea>
-                        </div>
-                     </div>
-
-                                         
-                          
-                     <input id="save" type="button" class="btn btn-default btn-lg" value="Salvar"/>
-               </form>
-
-                                             <!--FIM-->
-
-                                             <!--Formulario Cadastro Imóvel Proprietario-->
-
-
-                  <form class="form-horizontal" id="form_proprietarios"  style="display:none">
-                     <div class="form-group">
-                        <label for="finalidade" class="col-sm-2 control-label">Finalidade</label>
-                        <div class="col-sm-6">
-                           <ul style="list-style-type:none">
-                              <li role="presentation" class="dropdown">
-                                 <select class="form-control" id="finalidade_imovel">
-                                    <option>Escolha uma Opção</option>
-                                    <option> Proprietarios vem do Banco </option>
-                                     <option> Cadastro novo imóvel </option>                                   
-                                 </select>
-                           </ul>
-                           </li>
-                           </ul>
-                        </div>
-                     </div>
-                     </form>
-
-                                                <!--FIM-->
-
-                                                <!--Formulario Cadastro de FOTOS-->
-                       <form class="form-horizontal" id="form_adicionar_fotos_salvar"  style="display:none">
-                        <div class="form-group">
-                        <label for="exampleInputFile">Inserir Fotos</label>
-                        <input type="file" id="exampleInputFile">
-                       </div>    
-                     </form>
-
-
-                                                <!--FIM-->
-
-
-
-
-
-
-
-
-               </div>
-            </div>
-            <div id="exibir_imoveis" class="row" style="display:none">
-               <h1> Imoveis</h1>
-               <table class="table">
-                  <thead>
-                    <th>
-                      Finalidade
-                    </th>
-                    <th>
-                      Tipo
-                    </th>
-                  </thead>
-                  <tbody id="tbody">
-                  </tbody>
-               </table>
-            </div>
+         <div id="page-wrapper" ng-switch="selected_item">
+             <div ng-switch-when="gerenciar_cidades">
+             <h1>{{selected_item}}</h1>
+           </div>
+           <div ng-switch-when="gerenciar_bairros">
+             <h1>{{selected_item}}</h1>
+           </div>
+           <div ng-switch-when="novo_imovel">
+             <h1>{{selected_item}}</h1>
+           </div>
+           <div ng-switch-when="imoveis_cadastrados">
+             <h1>{{selected_item}}</h1>
+           </div>
+           <div ng-switch-when="pesquisar_imoveis">
+             <h1>{{selected_item}}</h1>
+           </div>
+           <div ng-switch-when="alterar_posicao_destaque">
+             <h1>{{selected_item}}</h1>
+           </div>
          </div>
       </div>
       <!-- /#wrapper -->
@@ -552,5 +233,6 @@
       <!-- Custom Theme JavaScript -->
       <script src="../dist/js/sb-admin-2.js"></script>
       <script src="../js/novo_imovel.js"></script>
+
    </body>
 </html>
